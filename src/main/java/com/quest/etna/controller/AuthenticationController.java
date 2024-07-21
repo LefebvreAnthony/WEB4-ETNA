@@ -1,7 +1,7 @@
 package com.quest.etna.controller;
 
 import com.quest.etna.repositories.UserRepository;
-
+import com.quest.utils.EncoderPassword;
 import com.quest.etna.model.User;
 import com.quest.etna.model.UserDetails;
 
@@ -50,6 +50,7 @@ public class AuthenticationController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already taken");
         }
 
+        password = EncoderPassword.hashPassword(password);
         // Create a new user
         User user = new User(username, password);
 
@@ -57,6 +58,7 @@ public class AuthenticationController {
         try {
             userRepository.save(user);
         } catch (Exception e) {
+
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to save user");
         }
 
