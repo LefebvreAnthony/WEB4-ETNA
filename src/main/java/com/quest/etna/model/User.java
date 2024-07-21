@@ -51,6 +51,10 @@ public class User {
     @Column(name = "UpdateAt", nullable = false)
     private Date updateAt;
 
+    // Constructors
+    public User() {
+    }
+
     /**
      * [User role]
      * Default set to ROLE_USER
@@ -65,26 +69,40 @@ public class User {
         }
     }
 
-    // Getters and Setters
+    // Getters
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public Date getCreationAt() {
+        return creationAt;
+    }
+
+    public Date getUpdateAt() {
+        return updateAt;
+    }
+
+    // Setters
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setPassword(String password) {
@@ -95,16 +113,8 @@ public class User {
         this.role = role;
     }
 
-    public Date getCreationAt() {
-        return creationAt;
-    }
-
     public void setCreationAt(Date creationAt) {
         this.creationAt = creationAt;
-    }
-
-    public Date getUpdateAt() {
-        return updateAt;
     }
 
     public void setUpdateAt(Date updateAt) {
@@ -140,6 +150,18 @@ public class User {
     @Override
     public int hashCode() {
         return Long.hashCode(this.getId());
+    }
+
+    /**
+     * [User toString]
+     * Convert the User object to a string
+     * 
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", username=" + username + ", role=" + role
+                + ", creationAt=" + creationAt + ", updateAt=" + updateAt + "]";
     }
 
 }
