@@ -35,6 +35,10 @@ public class AuthenticationController {
             HttpServletRequest request,
             HttpServletResponse response) {
 
+        if (registration == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request body");
+        }
+
         String username = registration.getUsername();
         String password = registration.getPassword();
 
@@ -42,7 +46,7 @@ public class AuthenticationController {
 
         System.out.println("Username: " + existingUser);
         // Check if the username is already taken
-        if (existingUser != null) {
+        if (existingUser != null && existingUser.getUsername().equalsIgnoreCase(username)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already taken");
         }
 
@@ -53,7 +57,7 @@ public class AuthenticationController {
         try {
             userRepository.save(user);
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to save user");
         }
 
         return new UserDetails(username, user.getRole());
