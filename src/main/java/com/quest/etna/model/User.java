@@ -91,10 +91,6 @@ public class User {
         this.password = password;
     }
 
-    public UserRole getRole() {
-        return role;
-    }
-
     public void setRole(UserRole role) {
         this.role = role;
     }
@@ -113,6 +109,37 @@ public class User {
 
     public void setUpdateAt(Date updateAt) {
         this.updateAt = updateAt;
+    }
+
+    /**
+     * [User equals]
+     * Real comparison between two objects (User) not just their references
+     * 
+     * @param obj User
+     * @return boolean
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || obj.getClass() != this.getClass())
+            return false;
+
+        User user = (User) obj;
+
+        return user.getId() == this.getId();
+    }
+
+    /**
+     * [User hashCode]
+     * Generate a hash code for the User object based on its id
+     * (used for speeding up comparison)
+     * 
+     * @return int based on the id
+     */
+    @Override
+    public int hashCode() {
+        return Long.hashCode(this.getId());
     }
 
 }

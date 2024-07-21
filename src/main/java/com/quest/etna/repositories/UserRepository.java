@@ -1,6 +1,9 @@
 package com.quest.etna.repositories;
 
+import com.quest.etna.model.User;
 
-public class UserRepository {
+import org.springframework.data.repository.CrudRepository;
 
+public interface UserRepository extends CrudRepository<User, Long> {
+    User findByUsername(String username);
 }
