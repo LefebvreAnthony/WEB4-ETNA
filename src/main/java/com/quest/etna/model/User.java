@@ -1,8 +1,6 @@
 package com.quest.etna.model;
 
-import java.sql.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDateTime;
 
 import com.quest.etna.enums.UserRole;
 
@@ -15,8 +13,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Entity
 public class User {
@@ -40,19 +36,17 @@ public class User {
     private UserRole role;
 
     @Basic
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     @Column(name = "creationAt", nullable = false)
-    private Date creationAt;
+    private LocalDateTime creationAt;
 
     @Basic
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    @Column(name = "UpdateAt", nullable = false)
-    private Date updateAt;
+    @Column(name = "UpdateAt", nullable = true)
+    private LocalDateTime updateAt;
 
     // Constructors
-    public User() {
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     /**
@@ -65,7 +59,7 @@ public class User {
             role = UserRole.ROLE_USER;
         }
         if (creationAt == null) {
-            creationAt = new Date(System.currentTimeMillis());
+            creationAt = LocalDateTime.now();
         }
     }
 
@@ -87,11 +81,11 @@ public class User {
         return role;
     }
 
-    public Date getCreationAt() {
+    public LocalDateTime getCreationAt() {
         return creationAt;
     }
 
-    public Date getUpdateAt() {
+    public LocalDateTime getUpdateAt() {
         return updateAt;
     }
 
@@ -113,11 +107,11 @@ public class User {
         this.role = role;
     }
 
-    public void setCreationAt(Date creationAt) {
+    public void setCreationAt(LocalDateTime creationAt) {
         this.creationAt = creationAt;
     }
 
-    public void setUpdateAt(Date updateAt) {
+    public void setUpdateAt(LocalDateTime updateAt) {
         this.updateAt = updateAt;
     }
 
