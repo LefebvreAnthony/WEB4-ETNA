@@ -40,7 +40,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @JsonBackReference
-    private Set<Adress> adress;
+    private Set<Address> adress;
 
     @Basic
     @Column(name = "creationAt", nullable = false)
@@ -99,7 +99,7 @@ public class User {
         return updateAt;
     }
 
-    public Set<Adress> getAdress() {
+    public Set<Address> getAdress() {
         return adress;
     }
 
@@ -129,7 +129,7 @@ public class User {
         this.updateAt = updateAt;
     }
 
-    public void setAdress(Set<Adress> adress) {
+    public void setAdress(Set<Address> adress) {
         this.adress = adress;
     }
 

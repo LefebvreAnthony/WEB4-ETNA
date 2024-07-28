@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -70,7 +73,7 @@ public class AuthenticationController {
     @PostMapping("/authenticate")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public String authenticate(@RequestBody User authentication) {
+    public ResponseEntity<Map<String, Object>> authenticate(@RequestBody User authentication) {
 
         Authentication auth;
         try {
@@ -84,6 +87,6 @@ public class AuthenticationController {
         final JwtUserDetails userDetails = (JwtUserDetails) auth.getPrincipal();
         final String token = jwtTokenUtil.generateToken(userDetails.getUsername());
 
-        return token;
+        return ResponseEntity.ok(Map.of("token", token));
     }
 }

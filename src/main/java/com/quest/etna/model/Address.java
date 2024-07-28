@@ -16,7 +16,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 
 @Entity
-public class Adress {
+public class Address {
 
     @Id
     @Column(name = "id", nullable = false, unique = true)
@@ -53,10 +53,10 @@ public class Adress {
     private LocalDateTime updateAt;
 
     // Constructors
-    public Adress() {
+    public Address() {
     }
 
-    public Adress(String street, String city, String postalCode, String country) {
+    public Address(String street, String city, String postalCode, String country) {
         this.street = street;
         this.city = city;
         this.postalCode = postalCode;
@@ -141,7 +141,7 @@ public class Adress {
         if (o == null || getClass() != o.getClass())
             return false;
 
-        Adress adress = (Adress) o;
+        Address adress = (Address) o;
 
         return Objects.equals(street, adress.street)
                 && Objects.equals(city, adress.city)
