@@ -2,8 +2,10 @@ package com.quest.etna.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.quest.etna.enums.UserRole;
 
+import java.util.Set;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +14,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 
 @Entity
@@ -34,6 +37,10 @@ public class User {
     @Column(name = "role", nullable = false, length = 255)
     @Enumerated(EnumType.STRING)
     private UserRole role;
+
+    @OneToMany(mappedBy = "user")
+    @JsonBackReference
+    private Set<Adress> adress;
 
     @Basic
     @Column(name = "creationAt", nullable = false)
@@ -92,6 +99,10 @@ public class User {
         return updateAt;
     }
 
+    public Set<Adress> getAdress() {
+        return adress;
+    }
+
     // Setters
 
     public void setId(Long id) {
@@ -116,6 +127,10 @@ public class User {
 
     public void setUpdateAt(LocalDateTime updateAt) {
         this.updateAt = updateAt;
+    }
+
+    public void setAdress(Set<Adress> adress) {
+        this.adress = adress;
     }
 
     /**

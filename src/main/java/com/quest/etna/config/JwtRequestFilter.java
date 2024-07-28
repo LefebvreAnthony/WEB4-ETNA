@@ -51,6 +51,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request, response);
         } catch (Exception e) {
+            System.out.println("Error while filtering request");
             e.printStackTrace();
         }
 
