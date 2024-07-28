@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -34,18 +35,18 @@ public class AddressController {
         this.userRepository = userRepository;
     }
 
-    // @GetMapping
-    // @ResponseStatus(HttpStatus.OK)
-    // public List<Adress> getAllAddress() {
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<Adress> getAllAddress() {
 
-    // List<Adress> addressList = addressRepository.findAll();
+        List<Adress> addressList = addressRepository.findAll();
 
-    // if (addressList.isEmpty()) {
-    // throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No address found");
-    // }
+        if (addressList.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No address found");
+        }
 
-    // return addressRepository.findAll();
-    // }
+        return addressRepository.findAll();
+    }
 
     @PostMapping
     public Adress createAddress(@RequestBody Adress address) {
@@ -81,15 +82,5 @@ public class AddressController {
         }
 
         return address;
-
-        // try {
-        // addressRepository.save(address);
-        // } catch (Exception e) {
-        // throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error
-        // while saving address");
-        // }
-
-        // return address;
-
     }
 }
